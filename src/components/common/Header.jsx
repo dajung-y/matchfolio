@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <header
-      className={`h-16 ${
+      className={`fixed left-0 top-0 z-50 h-16 w-full ${
         isLoggedIn
           ? "bg-primary text-white"
           : "bg-white border-b border-gray-100 text-primary"
