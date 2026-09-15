@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import AuthBranding from "../components/auth/AuthBranding";
+
 import AuthButton from "../components/auth/AuthButton";
 import AuthContainer from "../components/auth/AuthContainer";
 
 import emailIcon from "../assets/icons/email64.png";
 import lockIcon from "../assets/icons/lock64.png";
 export default function LoginPage() {
+  // TODO: 로그인 폼 제출 구현
   const handleSubmit = (e) => {
     e.preventDefault();
   };
