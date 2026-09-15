@@ -5,7 +5,7 @@ export default function AuthLayout() {
   return (
     <div className="flex min-h-screen">
       <AuthBranding />
-      <main className="flex flex-1 items-center justify-center px-6">
+      <main className="flex flex-1 items-center justify-center px-6 bg-primary-extra-light">
         <Outlet />
       </main>
     </div>

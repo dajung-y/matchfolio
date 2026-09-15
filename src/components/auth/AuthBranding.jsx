@@ -5,7 +5,7 @@ export default function AuthBranding() {
     <aside
       className="
       relative hidden min-h-screen w-[32%]
-      overflow-hidden bg-primary-extra-light
+      overflow-hidden bg-primary-light
       md:block">
       {/* link */}
       <Link to={"/"} className="absolute left-12 top-10">
