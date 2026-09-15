@@ -1,9 +1,13 @@
 import { Outlet } from "react-router-dom";
+import AuthBranding from "../components/auth/AuthBranding";
 
 export default function AuthLayout() {
   return (
-    <main className="min-h-screen">
-      <Outlet />
-    </main>
+    <div className="flex min-h-screen">
+      <AuthBranding />
+      <main className="flex flex-1 items-center justify-center px-6">
+        <Outlet />
+      </main>
+    </div>
   );
 }
