@@ -3,21 +3,61 @@ import uploadIcon from "../../assets/icons/upload64.png";
 import pdfIcon from "../../assets/icons/pdf64.png";
 import deleteIcon from "../../assets/icons/delete64.png";
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const PDF_TYPE = "application/pdf";
+
 export default function PortfolioUploader({
   file,
   onFileSelect,
   onFileRemove,
 }) {
+  // 파일 검증
+  const validateFile = (selectedFile) => {
+    if (selectedFile.type !== PDF_TYPE) {
+      alert("PDF 파일만 업도르할 수 있어요.");
+      return false;
+    }
+
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      alert("10MB 이하의 파일만 업로드할 수 있어요.");
+      return false;
+    }
+    return true;
+  };
+
+  // 파일 업로드
   const handleChange = (e) => {
     const selectedFile = e.target.files[0];
 
     if (!selectedFile) return;
 
+    if (!validateFile(selectedFile)) return;
+
     onFileSelect(selectedFile);
   };
 
+  // 드래그앤 드롭
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+
+    const droppedFile = e.dataTransfer.files[0];
+
+    if (!droppedFile) return;
+
+    if (!validateFile(droppedFile)) return;
+
+    onFileSelect(droppedFile);
+  };
+
   return (
-    <div className="w-full max-w-3xl rounded border border-primary-light border-dashed bg-primary-extra-light px-6 py-8">
+    <div
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      className="w-full max-w-3xl rounded border border-primary-light border-dashed bg-primary-extra-light px-6 py-8">
       <div className="flex flex-col items-center justify-center">
         {file ? (
           <>

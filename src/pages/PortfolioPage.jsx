@@ -16,8 +16,9 @@ export default function PortfolioPage() {
     setFile(null);
   };
 
-  const handleClick = () => {
-    alert("분석하기");
+  // TODO: 로직추가
+  const handleAnalyze = () => {
+    if (!file) return;
   };
 
   return (
@@ -42,11 +43,11 @@ export default function PortfolioPage() {
       </div>
 
       {/* 분석하기 */}
-      {/* TODO: API 추가 */}
       <div className="mt-4 mx-auto max-w-md flex flex-col">
         <button
-          onClick={handleClick}
-          className="mb-2 rounded-lg px-20 py-3 bg-primary font-semibold text-white cursor-pointer">
+          onClick={handleAnalyze}
+          disabled={!file}
+          className={`mb-2 rounded-lg px-20 py-3 font-semibold text-white ${file ? "bg-primary hover:bg-primary-dark cursor-pointer" : "bg-gray-300"}`}>
           분석 시작하기
         </button>
         <p className="text-center text-sm text-gray-500">
