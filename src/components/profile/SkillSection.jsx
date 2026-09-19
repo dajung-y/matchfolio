@@ -1,3 +1,5 @@
+import { IoSettingsSharp } from "react-icons/io5";
+
 export default function SKillSection({ skills }) {
   const skillIcons = {
     // language
@@ -31,10 +33,10 @@ export default function SKillSection({ skills }) {
       {/* header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <div className="rounded-full w-4 h-4 mr-2 bg-primary-light"></div>
-          <h2 className="text-lg font-semibold text-primary-medium">
-            기술 스택
-          </h2>
+          <div className="flex items-center justify-center w-6 h-6 mr-1">
+            <IoSettingsSharp className="w-full text-primary" />
+          </div>
+          <h2 className="text-lg font-semibold text-primar">기술 스택</h2>
         </div>
         {/* TODO: 수정 기능 추가 */}
         <button
