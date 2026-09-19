@@ -1,4 +1,5 @@
 import ProfileInfo from "../components/profile/ProfileInfo";
+import ProjectSection from "../components/profile/ProjectSection";
 import SKillSection from "../components/profile/SkillSection";
 
 import mockPortfolio from "../data/mockPortfolio";
@@ -18,12 +19,22 @@ export default function PortfolioProfilePage() {
 
       {/* 기본정보 */}
       <div className="mt-4">
-        <ProfileInfo profile={mockPortfolio.profile} />
+        <ProfileInfo
+          profile={mockPortfolio.profile}
+          education={mockPortfolio.education}
+          certificates={mockPortfolio.certificates}
+          awards={mockPortfolio.awards}
+        />
       </div>
 
       {/* 기술 스택 */}
       <div className="mt-4">
         <SKillSection skills={mockPortfolio.skills} />
+      </div>
+
+      {/* 프로젝트 */}
+      <div className="mt-4">
+        <ProjectSection projects={mockPortfolio.projects} />
       </div>
     </main>
   );

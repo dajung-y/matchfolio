@@ -35,11 +35,6 @@ const mockPortfolio = {
       ],
 
       achievements: ["React Query를 활용한 서버 상태 관리"],
-
-      links: {
-        github: "",
-        demo: "",
-      },
     },
   ],
 
@@ -74,7 +69,7 @@ const mockPortfolio = {
     {
       id: 1,
       name: "정보처리기사",
-      date: "2024.00",
+      date: "2024.01",
     },
   ],
 

@@ -1,51 +1,100 @@
-export default function ProfileInfo({ profile }) {
+import { FaUser } from "react-icons/fa";
+
+export default function ProfileInfo({
+  profile,
+  education,
+  certificates,
+  awards,
+}) {
   return (
-    <section className="rounded-xl border border-primary-light w-full px-6 py-4">
-      {/* header */}
+    <section className="w-full rounded-xl border border-primary-light px-6 py-5">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <div className="rounded-full w-4 h-4 mr-2 bg-primary-light"></div>
-          <h2 className="text-lg font-semibold text-primary">기본 정보</h2>
+          <div className="mr-2 flex h-6 w-6 items-center justify-center">
+            <FaUser className="w-full text-primary" />
+          </div>
+
+          <h2 className="text-lg font-semibold text-primary">기본 프로필</h2>
         </div>
-        <button className="text-sm text-primary-medium underline">수정</button>
+
+        <button
+          type="button"
+          className="cursor-pointer text-sm text-primary-medium underline">
+          수정
+        </button>
       </div>
-      {/* content */}
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 justify-between gap-10">
-        {/* info */}
-        <div className="w-full">
-          <p className="font-semibold text-gray-900">{profile.name}</p>
-          <p className="text-sm text-gray-500 mt-1">{profile.position}</p>
+
+      {/* Profile */}
+      <div className="mt-5">
+        <p className="text-lg font-bold text-gray-900">{profile.name}</p>
+
+        <p className="mt-1 text-sm text-gray-500">{profile.position}</p>
+      </div>
+
+      {/* Divider */}
+      <div className="my-5 border-t border-gray-100" />
+
+      {/* Additional Info */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* Education */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-500">학력</h3>
+
+          <div className="mt-2 space-y-3">
+            {education.map((edu) => (
+              <div key={edu.id}>
+                <p className="text-sm font-semibold text-gray-800">
+                  {edu.school}
+                </p>
+
+                <p className="mt-1 text-sm text-gray-600">{edu.major}</p>
+
+                <p className="mt-1 text-xs text-gray-400">
+                  {edu.period.start} - {edu.period.end}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-        {/* link */}
-        <div className="flex flex-col justify-center rounded-lg border border-primary-light px-4 py-2">
-          <div className="text-sm">
-            {profile.links.github && (
-              <a
-                href={profile.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary-medium hover:underline">
-                GitHub
-              </a>
-            )}
-            {profile.links.blog && (
-              <a
-                href={profile.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary-medium hover:underline">
-                Blog
-              </a>
-            )}
-            {profile.links.portfolio && (
-              <a
-                href={profile.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary-medium hover:underline">
-                Portfolio
-              </a>
-            )}
+
+        {/* Certificates */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-500">자격증</h3>
+
+          <div className="mt-2 space-y-3">
+            {certificates.map((certificate) => (
+              <div key={certificate.id}>
+                <p className="text-sm font-semibold text-gray-800">
+                  {certificate.name}
+                </p>
+
+                <p className="mt-1 text-xs text-gray-400">{certificate.date}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Awards */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-500">수상</h3>
+
+          <div className="mt-2 space-y-3">
+            {awards.map((award) => (
+              <div key={award.id}>
+                <p className="text-sm font-semibold text-gray-800">
+                  {award.name}
+                </p>
+
+                <p className="mt-1 text-xs text-gray-400">{award.date}</p>
+
+                {award.description && (
+                  <p className="mt-1 text-sm text-gray-600">
+                    {award.description}
+                  </p>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
