@@ -42,13 +42,20 @@ const mockPortfolio = {
     {
       id: 1,
       name: "구름 프론트엔드 부트캠프",
-
       period: {
         start: "2025.05",
         end: "2025.11",
       },
-
       description: "React 기반 웹 개발 및 팀 프로젝트",
+    },
+    {
+      id: 2,
+      name: "00인턴",
+      period: {
+        start: "2026.01",
+        end: "2026.06",
+      },
+      description: "컴포넌트 구현 및 API 연동",
     },
   ],
 

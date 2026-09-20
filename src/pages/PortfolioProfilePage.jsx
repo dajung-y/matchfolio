@@ -1,3 +1,4 @@
+import ExperienceSection from "../components/profile/ExperienceSection";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import ProjectSection from "../components/profile/ProjectSection";
 import SKillSection from "../components/profile/SkillSection";
@@ -36,6 +37,13 @@ export default function PortfolioProfilePage() {
       <div className="mt-4">
         <ProjectSection projects={mockPortfolio.projects} />
       </div>
+
+      {/* 경험 */}
+      {mockPortfolio.experiences.length > 0 && (
+        <div className="mt-4">
+          <ExperienceSection experiences={mockPortfolio.experiences} />
+        </div>
+      )}
     </main>
   );
 }
