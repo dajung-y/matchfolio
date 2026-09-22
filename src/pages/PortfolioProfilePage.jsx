@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ExperienceSection from "../components/profile/ExperienceSection";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import ProjectSection from "../components/profile/ProjectSection";
@@ -6,6 +7,7 @@ import SKillSection from "../components/profile/SkillSection";
 import mockPortfolio from "../data/mockPortfolio";
 
 export default function PortfolioProfilePage() {
+  const [editingSection, setEditingSection] = useState(null);
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       {/* page header */}
@@ -25,6 +27,9 @@ export default function PortfolioProfilePage() {
           education={mockPortfolio.education}
           certificates={mockPortfolio.certificates}
           awards={mockPortfolio.awards}
+          isEditing={editingSection === "profile"}
+          onEdit={() => setEditingSection("profile")}
+          onCancel={() => setEditingSection(null)}
         />
       </div>
 

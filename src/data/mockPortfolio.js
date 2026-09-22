@@ -2,12 +2,6 @@ const mockPortfolio = {
   profile: {
     name: "홍길동",
     position: "Frontend Developer",
-
-    links: {
-      github: "example@github.com",
-      blog: "",
-      portfolio: "",
-    },
   },
 
   skills: ["JavaScript", "React", "Next.js", "Tailwind CSS", "Firebase"],
@@ -20,8 +14,8 @@ const mockPortfolio = {
       description: "스터디 모집 및 관리 플랫폼",
 
       period: {
-        start: "2025.09",
-        end: "2025.11",
+        start: "2025-09",
+        end: "2025-11",
       },
 
       role: "Frontend Developer",
@@ -43,8 +37,8 @@ const mockPortfolio = {
       id: 1,
       name: "구름 프론트엔드 부트캠프",
       period: {
-        start: "2025.05",
-        end: "2025.11",
+        start: "2025-05",
+        end: "2025-11",
       },
       description: "React 기반 웹 개발 및 팀 프로젝트",
     },
@@ -52,8 +46,8 @@ const mockPortfolio = {
       id: 2,
       name: "00인턴",
       period: {
-        start: "2026.01",
-        end: "2026.06",
+        start: "2026-01",
+        end: "2026-06",
       },
       description: "컴포넌트 구현 및 API 연동",
     },
@@ -66,8 +60,8 @@ const mockPortfolio = {
       major: "컴퓨터공학과",
 
       period: {
-        start: "2019.03",
-        end: "2024.02",
+        start: "2019-03",
+        end: "2024-02",
       },
     },
   ],
@@ -76,7 +70,7 @@ const mockPortfolio = {
     {
       id: 1,
       name: "정보처리기사",
-      date: "2024.01",
+      date: "2024-01",
     },
   ],
 
@@ -84,7 +78,7 @@ const mockPortfolio = {
     {
       id: 1,
       name: "OO 해커톤 우수상",
-      date: "2025.08",
+      date: "2025-08",
       description: "AI 기반 서비스 개발",
     },
   ],
