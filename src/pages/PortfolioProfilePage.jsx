@@ -8,6 +8,20 @@ import mockPortfolio from "../data/mockPortfolio";
 
 export default function PortfolioProfilePage() {
   const [editingSection, setEditingSection] = useState(null);
+  const [portfolio, setPortfolio] = useState(mockPortfolio);
+
+  // 포트폴리오 업데이트 함수
+  const handleProfileSave = (updatedData) => {
+    setPortfolio((prev) => ({
+      ...prev,
+      profile: updatedData.profile,
+      education: updatedData.education,
+      certificates: updatedData.certificates,
+      awards: updatedData.awards,
+    }));
+    setEditingSection(null);
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       {/* page header */}
@@ -23,28 +37,29 @@ export default function PortfolioProfilePage() {
       {/* 기본정보 */}
       <div className="mt-4">
         <ProfileInfo
-          profile={mockPortfolio.profile}
-          education={mockPortfolio.education}
-          certificates={mockPortfolio.certificates}
-          awards={mockPortfolio.awards}
+          profile={portfolio.profile}
+          education={portfolio.education}
+          certificates={portfolio.certificates}
+          awards={portfolio.awards}
           isEditing={editingSection === "profile"}
           onEdit={() => setEditingSection("profile")}
           onCancel={() => setEditingSection(null)}
+          onSave={handleProfileSave}
         />
       </div>
 
       {/* 기술 스택 */}
       <div className="mt-4">
-        <SKillSection skills={mockPortfolio.skills} />
+        <SKillSection skills={portfolio.skills} />
       </div>
 
       {/* 프로젝트 */}
       <div className="mt-4">
-        <ProjectSection projects={mockPortfolio.projects} />
+        <ProjectSection projects={portfolio.projects} />
       </div>
 
       {/* 경험 */}
-      {mockPortfolio.experiences.length > 0 && (
+      {portfolio.experiences.length > 0 && (
         <div className="mt-4">
           <ExperienceSection experiences={mockPortfolio.experiences} />
         </div>

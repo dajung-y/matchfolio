@@ -9,12 +9,23 @@ export default function ProfileInfo({
   isEditing,
   onEdit,
   onCancel,
+  onSave,
 }) {
   // 변경 전 states
   const [draftProfile, setDraftProfile] = useState(profile);
   const [draftEducation, setDraftEducation] = useState(education);
   const [draftCertificates, setDraftCertificates] = useState(certificates);
   const [draftAwards, setDraftAwards] = useState(awards);
+
+  // 수정 후 저장
+  const handleSave = () => {
+    onSave({
+      profile: draftProfile,
+      education: draftEducation,
+      certificates: draftCertificates,
+      awards: draftAwards,
+    });
+  };
 
   // 취소 버튼
   const handleCancel = () => {
@@ -158,6 +169,7 @@ export default function ProfileInfo({
             </button>
             <button
               type="button"
+              onClick={handleSave}
               className="text-sm text-primary-medium cursor-pointer">
               저장
             </button>
