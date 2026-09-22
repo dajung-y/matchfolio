@@ -10,7 +10,7 @@ export default function PortfolioProfilePage() {
   const [editingSection, setEditingSection] = useState(null);
   const [portfolio, setPortfolio] = useState(mockPortfolio);
 
-  // 포트폴리오 업데이트 함수
+  // 프로필 업데이트 함수
   const handleProfileSave = (updatedData) => {
     setPortfolio((prev) => ({
       ...prev,
@@ -18,6 +18,15 @@ export default function PortfolioProfilePage() {
       education: updatedData.education,
       certificates: updatedData.certificates,
       awards: updatedData.awards,
+    }));
+    setEditingSection(null);
+  };
+
+  // 스킬 업데이트 함수
+  const handleSkillSave = (updatedData) => {
+    setPortfolio((prev) => ({
+      ...prev,
+      skills: updatedData.skills,
     }));
     setEditingSection(null);
   };
@@ -50,7 +59,13 @@ export default function PortfolioProfilePage() {
 
       {/* 기술 스택 */}
       <div className="mt-4">
-        <SKillSection skills={portfolio.skills} />
+        <SKillSection
+          skills={portfolio.skills}
+          isEditing={editingSection === "skills"}
+          onEdit={() => setEditingSection("skills")}
+          onCancel={() => setEditingSection(null)}
+          onSave={handleSkillSave}
+        />
       </div>
 
       {/* 프로젝트 */}
