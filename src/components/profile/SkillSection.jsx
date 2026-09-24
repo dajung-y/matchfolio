@@ -66,7 +66,11 @@ export default function SKillSection({
 
     if (!trimmedSkill) return;
 
-    if (draftSkills.includes(trimmedSkill)) return;
+    const isDuplicate = draftSkills.some(
+      (skill) => skill.toLowerCase() === trimmedSkill.toLowerCase(),
+    );
+
+    if (isDuplicate) return;
 
     setDraftSkills((prev) => [...prev, trimmedSkill]);
 
@@ -77,9 +81,9 @@ export default function SKillSection({
     <section className="rounded-xl border border-primary-light w-full px-6 py-4">
       {/* header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="flex items-center justify-center w-6 h-6 mr-1">
-            <IoSettingsSharp className="w-full text-primary" />
+        <div className="flex items-center gap-1">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+            <IoSettingsSharp className="h-5 w-5 text-primary" />
           </div>
           <h2 className="text-lg font-semibold text-primary">기술 스택</h2>
         </div>
@@ -129,11 +133,27 @@ export default function SKillSection({
                     onClick={() => handleDeleteSkill(skill)}
                     className="cursor-pointer"
                     aria-label={`${skill} 삭제`}>
-                    <img src={deleteIcon} className="w-4 h-4" />
+                    <img src={deleteIcon} alt="" className="w-4 h-4" />
                   </button>
                 </div>
               );
             })}
+          </div>
+
+          {/* 스킬 추가 */}
+          <div className="mt-4 flex gap-2">
+            <input
+              type="text"
+              value={newSkill}
+              onChange={(e) => setNewSkill(e.target.value)}
+              className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2 outline-none focus:border-primary"
+            />
+            <button
+              type="button"
+              onClick={handleAddSkill}
+              className="shrink-0 rounded-lg bg-primary px-4 py-2 text-sm text-white cursor-pointer">
+              추가
+            </button>
           </div>
         </div>
       ) : (
