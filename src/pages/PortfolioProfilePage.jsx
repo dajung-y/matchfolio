@@ -40,6 +40,15 @@ export default function PortfolioProfilePage() {
     setEditingSection(null);
   };
 
+  // 경험 및 활동 업데이트 함수
+  const handleExperienceSave = (updatedData) => {
+    setPortfolio((prev) => ({
+      ...prev,
+      experiences: updatedData.experiences,
+    }));
+    setEditingSection(null);
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       {/* page header */}
@@ -91,7 +100,13 @@ export default function PortfolioProfilePage() {
       {/* 경험 */}
       {portfolio.experiences.length > 0 && (
         <div className="mt-4">
-          <ExperienceSection experiences={mockPortfolio.experiences} />
+          <ExperienceSection
+            experiences={portfolio.experiences}
+            isEditing={editingSection === "experiences"}
+            onEdit={() => setEditingSection("experiences")}
+            onCancel={() => setEditingSection(null)}
+            onSave={handleExperienceSave}
+          />
         </div>
       )}
     </main>
