@@ -2,17 +2,22 @@ import { MdWork } from "react-icons/md";
 
 export default function ExperienceSection({ experiences }) {
   return (
-    <section className="rounded-xl border border-primary-light w-full px-6 py-4">
+    <section className="w-full px-6 pt-4 pb-8 rounded-xl border border-primary-light">
       {/* header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <MdWork className="w-5 h-5 mr-2 text-primary" />
+        {/* 왼쪽: 아이콘 + 제목 */}
+        <div className="flex items-center gap-2">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+            <MdWork className="h-5 w-5 text-primary" />
+          </div>
+
           <h2 className="text-lg font-semibold text-primary">경험 및 활동</h2>
         </div>
-        {/* TODO: 수정 로직 구현 */}
+
+        {/* 오른쪽: 수정 */}
         <button
           type="button"
-          className="text-sm text-primary-medium cursor-pointer underline">
+          className="cursor-pointer text-sm text-primary-medium underline">
           수정
         </button>
       </div>

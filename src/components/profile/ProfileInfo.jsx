@@ -151,9 +151,9 @@ export default function ProfileInfo({
     <section className="w-full rounded-xl border border-primary-light px-6 py-5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="mr-2 flex h-6 w-6 items-center justify-center">
-            <FaUser className="w-full text-primary" />
+        <div className="flex items-center gap-1">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+            <FaUser className="h-5 w-5 text-primary" />
           </div>
 
           <h2 className="text-lg font-semibold text-primary">기본 프로필</h2>

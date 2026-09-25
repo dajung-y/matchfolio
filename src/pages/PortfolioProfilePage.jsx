@@ -31,6 +31,15 @@ export default function PortfolioProfilePage() {
     setEditingSection(null);
   };
 
+  // 프로젝트 업데이트 함수
+  const handleProjectSave = (updatedData) => {
+    setPortfolio((prev) => ({
+      ...prev,
+      projects: updatedData.projects,
+    }));
+    setEditingSection(null);
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       {/* page header */}
@@ -70,7 +79,13 @@ export default function PortfolioProfilePage() {
 
       {/* 프로젝트 */}
       <div className="mt-4">
-        <ProjectSection projects={portfolio.projects} />
+        <ProjectSection
+          projects={portfolio.projects}
+          isEditing={editingSection === "projects"}
+          onEdit={() => setEditingSection("projects")}
+          onCancel={() => setEditingSection(null)}
+          onSave={handleProjectSave}
+        />
       </div>
 
       {/* 경험 */}
