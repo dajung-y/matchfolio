@@ -1,6 +1,12 @@
 export const mockMatchResult = {
   matchScore: 82,
 
+  summary: {
+    title: "이 공고와 잘 맞는 포트폴리오예요!",
+    description:
+      "React 기반 프로젝트와 상태 관리 경험이 공고의 주요 요구사항과 잘 맞아요. TypeScript와 테스트 경험을 보완하면 직무 적합도를 더욱 높일 수 있어요.",
+  },
+
   breakdown: {
     techStack: 85,
     responsibilities: 88,
