@@ -68,8 +68,8 @@ export const mockMatchResult = {
       importance: "techStack",
       jobRequirement: "TypeScript",
       portfolioEvidence: null,
-      suggestion:
-        "TypeScript를 사용한 프로젝트 경험이 있다면 기술 스택과 구현 내용에 구체적으로 추가해보세요.",
+      description:
+        "공고에서는 TypeScript를 요구하지만, 포트폴리오에서는 관련 사용 경험을 확인하기 어려워요.",
     },
 
     {
@@ -78,8 +78,8 @@ export const mockMatchResult = {
       importance: "preferred",
       jobRequirement: "프론트엔드 테스트 코드 작성 경험",
       portfolioEvidence: null,
-      suggestion:
-        "테스트 경험이 있다면 사용한 테스트 도구와 테스트한 기능을 프로젝트에 구체적으로 작성해보세요.",
+      description:
+        "공고에서는 테스트 코드 작성 경험을 우대하지만, 포트폴리오에서는 관련 경험이 드러나지 않아요.",
     },
 
     {
@@ -89,8 +89,8 @@ export const mockMatchResult = {
       jobRequirement: "프론트엔드 성능 및 사용자 경험 개선",
       portfolioEvidence:
         "React Query의 캐싱 및 데이터 요청 방식에 대한 실험 경험은 확인되지만 실제 서비스의 성능 개선 결과는 명확하지 않습니다.",
-      suggestion:
-        "렌더링 최적화, 네트워크 요청 감소 등 실제 프로젝트에서 개선한 경험이 있다면 수치나 결과와 함께 추가해보세요.",
+      description:
+        "성능 관련 학습 경험은 확인되지만, 실제 서비스에서 개선한 과정이나 결과는 구체적으로 드러나지 않아요.",
     },
   ],
 
@@ -99,21 +99,21 @@ export const mockMatchResult = {
       id: 1,
       title: "TypeScript 경험을 보완해보세요",
       description:
-        "공고의 기술 스택에 TypeScript가 포함되어 있습니다. TypeScript를 적용한 프로젝트 경험을 추가하면 기술 스택 적합도를 높이는 데 도움이 됩니다.",
+        "기존 React 프로젝트에 TypeScript를 적용하고, 타입을 어떻게 설계하고 활용했는지 포트폴리오에 구체적으로 작성해보세요.",
     },
 
     {
       id: 2,
-      title: "프로젝트 성과를 구체적으로 작성해보세요",
+      title: "성능 개선 결과를 구체적으로 보여주세요",
       description:
-        "기능 구현 내용뿐 아니라 성능 개선, 네트워크 요청 감소, 사용자 경험 개선처럼 결과를 보여줄 수 있는 내용을 프로젝트 성과에 추가해보세요.",
+        "렌더링 최적화나 네트워크 요청 감소 경험이 있다면 적용한 방법과 개선 전후의 결과를 수치나 사례와 함께 작성해보세요.",
     },
 
     {
       id: 3,
-      title: "테스트 경험을 보여주세요",
+      title: "테스트 경험을 추가해보세요",
       description:
-        "공고에서 테스트 코드 작성 경험을 우대하고 있습니다. 테스트 경험이 있다면 사용한 도구와 테스트 범위를 프로젝트에 추가해보세요.",
+        "주요 컴포넌트나 사용자 기능에 테스트 코드를 작성하고, 사용한 테스트 도구와 테스트 범위를 프로젝트에 추가해보세요.",
     },
   ],
 };

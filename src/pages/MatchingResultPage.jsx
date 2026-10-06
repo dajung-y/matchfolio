@@ -3,6 +3,7 @@ import { mockJob } from "../data/mockJob.js";
 import { mockMatchResult } from "../data/mockMatchResult.js";
 import MatchSummary from "../components/matching/MatchSummary.jsx";
 import StrengthSection from "../components/matching/StrengthSection.jsx";
+import GapSection from "../components/matching/GapSection.jsx";
 
 export default function MatchingResultPage() {
   const handleDownload = () => {
@@ -55,6 +56,14 @@ export default function MatchingResultPage() {
         <StrengthSection
           strengthCount={mockMatchResult.strengths.length}
           strengths={mockMatchResult.strengths}
+        />
+      </div>
+
+      {/* gap section */}
+      <div className="mt-6">
+        <GapSection
+          gapCount={mockMatchResult.gaps.length}
+          gaps={mockMatchResult.gaps}
         />
       </div>
     </main>
