@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { mockJob } from "../data/mockJob.js";
 import { mockMatchResult } from "../data/mockMatchResult.js";
 import MatchSummary from "../components/matching/MatchSummary.jsx";
+import StrengthSection from "../components/matching/StrengthSection.jsx";
 
 export default function MatchingResultPage() {
   const handleDownload = () => {
@@ -46,6 +47,14 @@ export default function MatchingResultPage() {
           strengthCount={mockMatchResult.strengths.length}
           gapCount={mockMatchResult.gaps.length}
           matchScore={mockMatchResult.matchScore}
+        />
+      </div>
+
+      {/* strength section */}
+      <div className="mt-6">
+        <StrengthSection
+          strengthCount={mockMatchResult.strengths.length}
+          strengths={mockMatchResult.strengths}
         />
       </div>
     </main>
