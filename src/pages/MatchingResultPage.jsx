@@ -4,6 +4,7 @@ import { mockMatchResult } from "../data/mockMatchResult.js";
 import MatchSummary from "../components/matching/MatchSummary.jsx";
 import StrengthSection from "../components/matching/StrengthSection.jsx";
 import GapSection from "../components/matching/GapSection.jsx";
+import RecommendationSection from "../components/matching/RecommendationSection.jsx";
 
 export default function MatchingResultPage() {
   const handleDownload = () => {
@@ -64,6 +65,13 @@ export default function MatchingResultPage() {
         <GapSection
           gapCount={mockMatchResult.gaps.length}
           gaps={mockMatchResult.gaps}
+        />
+      </div>
+
+      {/* recommendation section */}
+      <div className="mt-6">
+        <RecommendationSection
+          recommendations={mockMatchResult.recommendations}
         />
       </div>
     </main>
