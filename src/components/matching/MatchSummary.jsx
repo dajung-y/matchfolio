@@ -90,7 +90,7 @@ export default function MatchSummary({
 
           {/* s/w */}
           <div className="mt-4 grid grid-cols-2 gap-4">
-            <div className="flex items-center rounded-lg border border-green-400 bg-green-50 px-6 py-4">
+            <div className="flex items-center rounded-lg border border-green-300 bg-green-50 px-6 py-4">
               <div className="flex items-center justify-center mr-4 w-12 h-12 shrink-0 rounded-full bg-green-200">
                 <img src={checkIcon} alt="checkIcon" className="w-8 h-8" />
               </div>
@@ -101,8 +101,8 @@ export default function MatchSummary({
                 <p className="text-sm text-gray-500">잘 맞는 역량</p>
               </div>
             </div>
-            <div className="flex items-center rounded-lg border border-red-400 bg-red-50 px-6 py-4">
-              <div className="flex items-center justify-center mr-4 w-12 h-12 shrink-0 rounded-full bg-red-200">
+            <div className="flex items-center rounded-lg border border-orange-300 bg-orange-50 px-6 py-4">
+              <div className="flex items-center justify-center mr-4 w-12 h-12 shrink-0 rounded-full bg-orange-200">
                 <img src={minusIcon} alt="minusIcon" className="w-8 h-8" />
               </div>
               <div className="flex flex-col space-y-1">
