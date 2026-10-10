@@ -1,14 +1,51 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import AuthButton from "../components/auth/AuthButton";
 import AuthContainer from "../components/auth/AuthContainer";
 
 import emailIcon from "../assets/icons/email64.png";
 import lockIcon from "../assets/icons/lock64.png";
+import { useState } from "react";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 export default function LoginPage() {
-  // TODO: 로그인 폼 제출 구현
-  const handleSubmit = (e) => {
+  // states
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setError("");
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+
+      if (!userCredential.user.emailVerified) {
+        await signOut(auth);
+
+        setError("이메일 인증 후 로그인해주세요.");
+        return;
+      }
+
+      console.log("로그인이 성공했습니다.", userCredential.user.email);
+      navigate("/");
+    } catch (error) {
+      console.error(error.code, error.message);
+
+      if (error.code === "auth/invalid-credential") {
+        setError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      } else {
+        setError("로그인 중 오류가 발생했습니다.");
+      }
+    }
   };
   return (
     <main>
@@ -36,6 +73,9 @@ export default function LoginPage() {
                 id="email"
                 name="email"
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-2 pl-10 py-2 rounded border border-gray-200 text-sm placeholder:text-gray-500 placeholder:font-semibold outline-none focus:border-primary-medium"
                 placeholder="이메일"
               />
@@ -52,12 +92,20 @@ export default function LoginPage() {
                 id="password"
                 name="password"
                 type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-2 pl-10 py-2 rounded border border-gray-200 text-sm placeholder:text-gray-500 placeholder:font-semibold outline-none focus:border-primary-medium"
                 placeholder="비밀번호"
               />
             </div>
             {/* loginBt */}
             <div className="mt-2">
+              {error && (
+                <p className="mb-2 text-center text-sm text-gray-500">
+                  {error}
+                </p>
+              )}
               <AuthButton title={"로그인"} />
             </div>
           </div>
