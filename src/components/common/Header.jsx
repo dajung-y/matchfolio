@@ -1,18 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 export default function Header() {
-  // TODO: firebase auth 연동 후 실제 로그인 상태로 변경
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
   // TODO: firestore 연동 후 실제 포트폴리오 존재 여부로 교체
   const [hasPortfolio, setHasPortfolio] = useState(false);
 
   const profilePath = hasPortfolio ? "/portfolio" : "/portfolio/upload";
 
+  // logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("로그아웃 성공", user.email);
+      navigate("/");
+    } catch (error) {
+      console.error("로그아웃 실패", error.message);
+    }
+  };
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <header
       className={`fixed left-0 top-0 z-50 h-16 w-full ${
-        isLoggedIn
+        user
           ? "bg-primary text-white"
           : "bg-white border-b border-gray-100 text-primary"
       }`}>
@@ -21,13 +40,13 @@ export default function Header() {
         <Link
           to={"/"}
           className={`text-xl font-bold ${
-            isLoggedIn ? "text-white" : "text-primary"
+            user ? "text-white" : "text-primary"
           }`}>
           Matchfolio
         </Link>
 
-        {isLoggedIn ? (
-          // 로그인 상태인 경우
+        {/* 로그인 상태인 경우 */}
+        {user ? (
           <>
             <nav className="ml-14 flex gap-10 font-normal">
               <Link to={"/job-analysis"}>채용공고 분석</Link>
@@ -37,7 +56,7 @@ export default function Header() {
             <button
               type="button"
               className="ml-auto text-sm font-normal cursor-pointer"
-              onClick={() => setIsLoggedIn(false)}>
+              onClick={handleLogout}>
               로그아웃
             </button>
           </>
