@@ -5,10 +5,59 @@ import ProjectSection from "../components/profile/ProjectSection";
 import SKillSection from "../components/profile/SkillSection";
 
 import mockPortfolio from "../data/mockPortfolio";
+import useAuth from "../hook/useAuth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 export default function PortfolioProfilePage() {
+  const { user } = useAuth();
+
   const [editingSection, setEditingSection] = useState(null);
   const [portfolio, setPortfolio] = useState(mockPortfolio);
+
+  console.log("회원정보: ", user.email);
+
+  // 프로필 firestore 저장 함수
+  const handleFirestoreSave = async () => {
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+
+      console.log("저장위치: ", userRef);
+
+      await setDoc(userRef, {
+        email: user.email,
+        portfolio: portfolio,
+      });
+      console.log("포트폴리오 저장 성공");
+    } catch (error) {
+      console.error("포트폴리오 저장 실패");
+    }
+  };
+
+  // portfolio firestore db 조회 함수
+  const handleFirestoreGet = async () => {
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+
+        setPortfolio(data.portfolio);
+
+        console.log("포트폴리오 데이터 조회 성공", data.portfolio);
+      } else {
+        console.log("저장된 포트폴리오가 없습니다.");
+      }
+    } catch (error) {
+      console.error("포트폴리오 데이터 조회 실패", error);
+    }
+  };
 
   // 프로필 업데이트 함수
   const handleProfileSave = (updatedData) => {
@@ -60,6 +109,20 @@ export default function PortfolioProfilePage() {
           AI가 분석한 포트폴리오 정보를 확인하고 관리할 수 있어요.
         </p>
       </header>
+
+      {/* firestore 저장 확인 임시 버튼 */}
+      <div className="flex gap-4 my-2">
+        <button
+          onClick={handleFirestoreSave}
+          className="rounded px-4 py-2 bg-green-500 text-white">
+          포트폴리오 임시 저장버튼
+        </button>
+        <button
+          onClick={handleFirestoreGet}
+          className="rounded px-4 py-2 bg-orange-500 text-white">
+          포트폴리오 임시 조회버튼
+        </button>
+      </div>
 
       {/* 기본정보 */}
       <div className="mt-4">
