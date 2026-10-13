@@ -3,6 +3,36 @@ import urlIcon from "../assets/icons/url64.png";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase/firebase";
 
+// 테스트용 채용공고
+const testJobText = `
+[회사명]
+넥스트랩
+
+[모집부문]
+프론트엔드 개발자
+
+[담당업무]
+- React 기반 웹 서비스 개발 및 유지보수
+- REST API를 활용한 프론트엔드 기능 개발
+- 디자이너 및 백엔드 개발자와 협업하여 서비스 기능 개선
+
+[자격요건]
+- React를 활용한 웹 개발 경험
+- JavaScript에 대한 이해
+- Git을 활용한 협업 경험
+
+[기술스택 및 개발환경]
+- JavaScript
+- React
+- TypeScript
+- React Query
+- Git
+
+[우대사항]
+- Next.js 사용 경험
+- Firebase를 활용한 프로젝트 경험
+`;
+
 export default function JobAnalysisPage() {
   const [url, setUrl] = useState("");
 
@@ -12,9 +42,12 @@ export default function JobAnalysisPage() {
 
     // test 용
     try {
-      const testOpenAI = httpsCallable(functions, "testOpenAI");
+      const analyzeJob = httpsCallable(functions, "analyzeJob");
 
-      const result = await testOpenAI();
+      const result = await analyzeJob({
+        jobText: testJobText,
+      });
+
       console.log(result.data);
     } catch (error) {
       console.error("Functions 호출 실패: ", error);
