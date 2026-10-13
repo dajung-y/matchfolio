@@ -12,9 +12,9 @@ export default function JobAnalysisPage() {
 
     // test 용
     try {
-      const helloWorld = httpsCallable(functions, "helloWorld");
+      const testOpenAI = httpsCallable(functions, "testOpenAI");
 
-      const result = await helloWorld();
+      const result = await testOpenAI();
       console.log(result.data);
     } catch (error) {
       console.error("Functions 호출 실패: ", error);

@@ -11,6 +11,10 @@ const { setGlobalOptions } = require("firebase-functions");
 const { onCall } = require("firebase-functions/https");
 const logger = require("firebase-functions/logger");
 
+const { defineSecret } = require("firebase-functions/params");
+const OpenAI = require("openai");
+const openaiApiKey = defineSecret("OPENAI_API_KEY");
+
 // For cost control, you can set the maximum number of containers that can be
 // running at the same time. This helps mitigate the impact of unexpected
 // traffic spikes by instead downgrading performance. This limit is a
@@ -30,5 +34,23 @@ exports.helloWorld = onCall(() => {
   logger.info("Hello logs!", { structuredData: true });
   return {
     message: "Hello from Firebase",
+  };
+});
+
+// open ai api test
+exports.testOpenAI = onCall({ secrets: [openaiApiKey] }, async () => {
+  const openai = new OpenAI({
+    apiKey: openaiApiKey.value(),
+  });
+
+  console.log("Responses API available:", typeof openai.responses);
+
+  const response = await openai.responses.create({
+    model: "gpt-5-mini",
+    input: "한문장으로 인사해줘",
+  });
+
+  return {
+    message: response.output_text,
   };
 });
