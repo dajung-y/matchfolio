@@ -1,12 +1,24 @@
 import { useState } from "react";
 import urlIcon from "../assets/icons/url64.png";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebase/firebase";
 
 export default function JobAnalysisPage() {
   const [url, setUrl] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // TODO: 분석 로직 구현
+
+    // test 용
+    try {
+      const helloWorld = httpsCallable(functions, "helloWorld");
+
+      const result = await helloWorld();
+      console.log(result.data);
+    } catch (error) {
+      console.error("Functions 호출 실패: ", error);
+    }
   };
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
