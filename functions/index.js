@@ -15,6 +15,8 @@ const { defineSecret } = require("firebase-functions/params");
 const OpenAI = require("openai");
 const openaiApiKey = defineSecret("OPENAI_API_KEY");
 
+const cheerio = require("cheerio");
+
 const jobSchema = {
   type: "object",
   properties: {
@@ -165,4 +167,91 @@ exports.analyzeJob = onCall({ secrets: [openaiApiKey] }, async (request) => {
   const analyzedJob = JSON.parse(response.output_text);
 
   return analyzedJob;
+});
+
+// 채용공고 url fetch
+exports.fetchJobPage = onCall(async (request) => {
+  const url = request.data.url;
+
+  if (typeof url !== "string" || !url.trim()) {
+    throw new Error("채용공고 URL이 필요합니다.");
+  }
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("페이지 요청 실패: ", response.status);
+  }
+
+  const html = await response.text();
+
+  // 채용공고 코드 추출
+  const parsedUrl = new URL(url);
+
+  const match = parsedUrl.pathname.match(/^\/Recruit\/GI_Read\/(\d+)\/?$/);
+
+  if (!match) {
+    throw new Error("올바른 잡코리아 채용공고 URL이 아닙니다.");
+  }
+
+  const jobId = match[1];
+
+  console.log("공고 ID: ", jobId);
+
+  const detailUrl = `https://www.jobkorea.co.kr/Recruit/GI_Read_Comt_Ifrm?Gno=${jobId}`;
+
+  const detailResponse = await fetch(detailUrl);
+  const detailHtml = await detailResponse.text();
+
+  // 요소제거
+  const $ = cheerio.load(detailHtml);
+
+  $("script, style, noscript").remove();
+
+  $("br").replaceWith("\n");
+
+  $("p, div, li, tr, td, th, h1, h2, h3, h4, h5, h6").each((_, element) => {
+    $(element).append("\n");
+  });
+
+  // 텍스트 추출
+  const jobText = $("body")
+    .text()
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join("\n");
+
+  // 이미지 url 추출
+  const imageUrls = [];
+
+  $("img").each((_, element) => {
+    const src = $(element).attr("src");
+
+    if (src) {
+      imageUrls.push(src);
+    }
+  });
+
+  // 이미지 url 정규화
+  const nomalizedImageUrls = imageUrls.map((src) => {
+    if (src.startsWith("//")) {
+      return `https:${src}`;
+    }
+    return src;
+  });
+
+  console.log("정규화된 이미지 URL: ", nomalizedImageUrls);
+
+  console.log("상세페이지 이미지 갯수: ", imageUrls.length);
+  console.log("상세페이지 이미지 URL: ", imageUrls);
+
+  console.log("상세페이지 status: ", detailResponse.status);
+  console.log("추출한 텍스트 길이: ", jobText.length);
+  console.log("추출된 텍스트: ", jobText);
+
+  return {
+    status: response.status,
+    htmlLength: html.length,
+  };
 });

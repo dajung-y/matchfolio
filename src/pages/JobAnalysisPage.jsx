@@ -38,19 +38,18 @@ export default function JobAnalysisPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: 분석 로직 구현
-
-    // test 용
+    // TODO: 분석 로직 구현중
     try {
-      const analyzeJob = httpsCallable(functions, "analyzeJob");
+      const fetchJobPage = httpsCallable(functions, "fetchJobPage");
 
-      const result = await analyzeJob({
-        jobText: testJobText,
+      const result = await fetchJobPage({
+        url: url,
       });
 
       console.log(result.data);
+      setUrl("");
     } catch (error) {
-      console.error("Functions 호출 실패: ", error);
+      console.error("채용공고 페이지 요청 실패: ", error);
     }
   };
   return (
