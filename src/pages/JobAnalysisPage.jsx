@@ -1,12 +1,33 @@
 import { useState } from "react";
 import urlIcon from "../assets/icons/url64.png";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebase/firebase";
 
 export default function JobAnalysisPage() {
   const [url, setUrl] = useState("");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: 분석 로직 구현
+
+    // 채용공고 분석
+    if (isAnalyzing) return;
+    setIsAnalyzing(true);
+
+    try {
+      const fetchJobPage = httpsCallable(functions, "fetchJobPage");
+
+      const result = await fetchJobPage({
+        url: url,
+      });
+
+      console.log(result.data);
+      setUrl("");
+    } catch (error) {
+      console.error("채용공고 페이지 요청 실패: ", error);
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
@@ -61,9 +82,16 @@ export default function JobAnalysisPage() {
           {/* submit */}
           <button
             type="submit"
-            disabled={!url.trim()}
-            className={`mx-auto mt-4 block w-full max-w-md rounded-lg py-3 font-semibold text-white ${url ? "bg-primary hover:bg-primary-dark cursor-pointer" : "bg-gray-300"}`}>
-            공고 분석하기
+            disabled={!url.trim() || isAnalyzing}
+            className={`mx-auto mt-4 block w-full max-w-md rounded-lg py-3 font-semibold text-white ${url.trim() && !isAnalyzing ? "bg-primary hover:bg-primary-dark cursor-pointer" : "bg-gray-300 cursor-not-allowed"}`}>
+            {isAnalyzing ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                분석 중...
+              </span>
+            ) : (
+              "공고 분석하기"
+            )}
           </button>
         </form>
       </div>
